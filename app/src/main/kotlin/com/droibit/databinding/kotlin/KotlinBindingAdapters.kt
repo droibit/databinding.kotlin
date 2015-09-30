@@ -3,6 +3,9 @@ package com.droibit.databinding.kotlin
 import android.databinding.BindingAdapter
 import android.databinding.BindingConversion
 import android.databinding.ObservableField
+import android.graphics.drawable.ColorDrawable
+import android.support.annotation.ColorInt
+import android.text.TextWatcher
 import android.widget.EditText
 
 /**
@@ -10,26 +13,24 @@ import android.widget.EditText
  */
 public object KotlinBindingAdapters {
 
-    /**
-     * https://medium.com/@fabioCollini/android-data-binding-f9f9d3afc761
-     */
-    @BindingAdapter("app:binding")
-    public fun onTextChange(view: EditText, text: ObservableField<String>) {
-        view.addTextChangedListener(NameTextWatcher(text))
-
-        if (view.text.toString() != text.get()) {
-            view.setText(text.get())
-        }
+    @BindingAdapter("app:onChange")
+    public fun onTextChange(view: EditText, watcher: TextWatcher) {
+        view.addTextChangedListener(watcher)
     }
-}
-
-/**
- * Created by kumagai on 2015/09/28.
- */
-public object KotlinConversions {
 
     @BindingConversion
-    public fun convertToString(string: ObservableField<String>): String {
-        return string.get()
+    public fun convertColorToDrawable(@ColorInt color: Int): ColorDrawable {
+        return ColorDrawable(color)
     }
 }
+//
+///**
+// * Created by kumagai on 2015/09/28.
+// */
+//public object KotlinConversions {
+//
+//    @BindingConversion
+//    public fun convertToString(string: ObservableField<String>): String {
+//        return string.get()
+//    }
+//}

@@ -1,8 +1,7 @@
 package com.droibit.databinding.kotlin;
 
 import android.databinding.BindingAdapter;
-import android.databinding.BindingConversion;
-import android.databinding.ObservableField;
+import android.text.TextWatcher;
 import android.widget.EditText;
 
 /**
@@ -10,18 +9,8 @@ import android.widget.EditText;
  */
 public class BindingAdapters {
 
-    @BindingAdapter("app:binding")
-    public static void bindEditText(EditText view, final ObservableField<String> string) {
-        view.addTextChangedListener(new NameTextWatcher(string));
-
-        final String newValue = string.get();
-        if (!view.getText().toString().equals(newValue)) {
-            view.setText(newValue);
-        }
-    }
-
-    @BindingConversion
-    public static String convertToString(ObservableField<String> string) {
-        return string.get();
+    @BindingAdapter("app:watcher")
+    public static void bindTextWatcher(EditText view, final TextWatcher watcher) {
+        view.addTextChangedListener(watcher);
     }
 }
